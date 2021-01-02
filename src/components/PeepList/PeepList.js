@@ -1,28 +1,23 @@
-import React, { useEffect } from 'react';
-import Axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Peep from '../Peep/Peep.js'
 
 const PeepList = () => {
+    const [peeps, setPeeps] = useState(null)
 
     let list = ["One", "Two", "Three"]
 
-    let peeps;
-
-    useEffect() {
-        try {
-            const response = await Axios.get("https://chitter-backend-api-v2.herokuapp.com/peeps");
-            if (response){
-                console.log(response)
-                peeps = response
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    useEffect( () => {
+      async function retrievePeeps(){
+        await axios.get("https://chitter-backend-api-v2.herokuapp.com/peeps")
+        .then((response) => {setPeeps(response.data)})
+      }
+      retrievePeeps()
+    }, []);
 
     return (
         <div>
             <p>{list}</p>
-        
         </div>
     )
 }
