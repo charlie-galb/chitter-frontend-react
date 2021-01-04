@@ -15,6 +15,12 @@ const PeepList = () => {
       retrievePeeps()
     }, []);
 
+    if (peeps) {
+      return peeps.map((singlePeep, i) => (
+        <Peep key={singlePeep.id} peepData={singlePeep}/>
+      )
+      )}
+
     return (
         <div>
             <p>{list}</p>
