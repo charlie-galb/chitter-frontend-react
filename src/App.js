@@ -1,14 +1,18 @@
 import './App.css';
-import PeepList from './components/PeepList/PeepList.js'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Timeline from './components/Timeline/Timeline.js'
+import Home from './components/Home/Home.js'
 import Navbar from './components/Navbar/Navbar.js'
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <h1>This is the app div</h1>
-      <PeepList />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Route exact path='/' component={Home} />
+        <Route path='/timeline' component={Timeline} />
+      </div>
+    </Router>
   );
 }
 
