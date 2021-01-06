@@ -1,5 +1,6 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React from 'react';
+import {Link} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Navbar() {
     return (
@@ -17,7 +18,7 @@ function Navbar() {
               <a className="nav-link" data-testid="log-in-link" href="#">Log in</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" data-testid="log-out-link" href="#">Log out</a>
+              <Link to='/' className="nav-link" data-testid="log-out-link" >Log out</Link>
             </li>
           </ul>
         </div>
