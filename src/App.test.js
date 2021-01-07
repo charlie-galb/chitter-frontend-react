@@ -4,5 +4,5 @@ import App from './App';
 
 test('renders without crashing', () => {
     const app = render(<App />);
-    expect(app.getByTestId("sign-up-link").textContent).toBe("Sign up");
+    expect(app.getByTestId("sign-up-link").textContent).toBe("Sign up here");
 });
