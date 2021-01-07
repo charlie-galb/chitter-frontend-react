@@ -12,13 +12,13 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" data-testid="sign-up-link" href="#">Sign up</a>
+              <a className="nav-link" id="nav-sign-up-link" data-testid="nav-sign-up-link" href="#">Sign up</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" data-testid="log-in-link" href="#">Log in</a>
+              <a className="nav-link" id="nav-log-in-link" data-testid="nav-log-in-link" href="#">Log in</a>
             </li>
             <li className="nav-item">
-              <Link to='/' className="nav-link" data-testid="log-out-link" >Log out</Link>
+              <Link to='/' className="nav-link" id="log-out-link" data-testid="log-out-link" >Log out</Link>
             </li>
           </ul>
         </div>
