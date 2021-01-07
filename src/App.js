@@ -9,8 +9,10 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <Route exact path='/' component={Home} />
-        <Route path='/timeline' component={Timeline} />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/timeline' component={Timeline} />
+        </Switch>
       </div>
     </Router>
   );
