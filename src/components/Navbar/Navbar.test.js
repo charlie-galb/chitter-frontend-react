@@ -7,7 +7,7 @@ describe("PeepList", () => {
   
   test('renders without crashing', () => {
     const navbar = render(<Router><Navbar /></Router>);
-    expect(navbar.getByTestId("sign-up-link").textContent).toBe("Sign up");
+    expect(navbar.getByTestId("log-out-link").textContent).toBe("Log out");
   });
 
  }) 
