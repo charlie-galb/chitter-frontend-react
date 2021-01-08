@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Chitter Frontend in React  
 
 This is a twitter clone made with react. It is designed to work with a [pre-existing back-end API](https://github.com/makersacademy/chitter_api_backend).  
 
