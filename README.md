@@ -13,7 +13,7 @@ This is a twitter clone made with react. It is designed to work with a [pre-exis
 This is a list of features in order of priority. Those that have been crossed out have been implemented already. 
 
 - ~~Viewing all Peeps~~
-- Creating Users
+- ~~Creating Users~~
 - Logging in
 - Posting Peeps
 - Viewing individual Peeps
