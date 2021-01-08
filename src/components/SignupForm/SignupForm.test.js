@@ -2,6 +2,7 @@ import React from 'react';
 import {render, fireEvent, cleanup} from '@testing-library/react';
 import axios from "axios";
 import SignupForm from './SignupForm.js';
+import UserContextProvider from '../../contexts/UserContext.js';
 
 beforeAll(() => {
     jest.mock("axios")
@@ -15,7 +16,7 @@ afterEach(cleanup)
 
  it('submits the correct info to the api', async () => {
     let axiosSpy = jest.spyOn(axios, "post")
-    const { getByText, getByTestId } = render(<SignupForm />);
+    const { getByText, getByTestId } = render(<UserContextProvider><SignupForm /></UserContextProvider>);
     fireEvent.change(getByTestId("sign-up-handle-input"), {target: {value: 'test handle' } } )
     fireEvent.change(getByTestId("sign-up-password-input"), {target: {value: 'test password' } } )
     fireEvent.change(getByTestId("sign-up-password-confirmation-input"), {target: {value: 'test password' } } )
