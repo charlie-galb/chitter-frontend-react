@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext.js';
 
 const SignupForm = () => {
  
-    const { storeUserHandleInContext, storeUserPasswordInContext, storeUserIdInContext } = useContext(UserContext)
+    const { storeUserHandleInContext, storeUserPasswordInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
+    const [redirect, setRedirect] = useState(null)
     const [handle, setHandle] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -25,6 +27,21 @@ const SignupForm = () => {
         setPasswordConfirmation(value);
       }
 
+    const sendLoginData = async () => {
+        try {
+            const response = await axios.post(
+                "https://chitter-backend-api-v2.herokuapp.com/sessions", {session: {handle: handle, password: password }}
+            );
+            if (response.data) {
+                setRedirect('/timeline')
+                storeCurrentSessionKeyInContext(response.data.session_key)
+                console.log(response.data)
+            }
+        } catch (error) {
+            console.log("Error:", error)
+        }
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -32,6 +49,7 @@ const SignupForm = () => {
                 "https://chitter-backend-api-v2.herokuapp.com/users", {user: {handle: handle, password: password }}
             );
             if (response.data.handle === handle) {
+                sendLoginData()
                 storeUserHandleInContext(handle)
                 storeUserPasswordInContext(password)
                 storeUserIdInContext(response.data.id)
@@ -39,6 +57,9 @@ const SignupForm = () => {
         } catch (error) {
             console.log("Error:", error)
         }
+    }
+    if (redirect) {
+        return <Redirect to={redirect} />
     }
     return (
         <Form>
