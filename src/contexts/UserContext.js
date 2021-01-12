@@ -33,7 +33,8 @@ class UserContextProvider extends Component {
                 storeUserHandleInContext: this.storeUserHandleInContext,
                 storeUserPasswordInContext: this.storeUserPasswordInContext,
                 storeUserIdInContext: this.storeUserIdInContext,
-                storeCurrentSessionKeyInContext: this.storeCurrentSessionKeyInContext}}>{this.props.children}</UserContext.Provider>
+                storeCurrentSessionKeyInContext: this.storeCurrentSessionKeyInContext,
+                }}>{this.props.children}</UserContext.Provider>
         )
     }
 }
