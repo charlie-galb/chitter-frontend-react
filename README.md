@@ -14,7 +14,7 @@ This is a list of features in order of priority. Those that have been crossed ou
 
 - ~~Viewing all Peeps~~
 - ~~Creating Users~~
-- Logging in
+- ~~Logging in~~
 - Posting Peeps
 - Viewing individual Peeps
 - Deleting Peeps
