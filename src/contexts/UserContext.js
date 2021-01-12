@@ -6,7 +6,8 @@ class UserContextProvider extends Component {
     state = {
         userHandle: "",
         userPassword: "",
-        userId: ""
+        userId: "",
+        currentSessionKey: ""
     };
 
     storeUserHandleInContext = (handle) => {
@@ -21,13 +22,18 @@ class UserContextProvider extends Component {
         this.setState({userId: id})
     };
 
+    storeCurrentSessionKeyInContext = (sessionKey) => {
+        this.setState({currentSessionKey: sessionKey})
+    };
+
     render() {
         return (
             <UserContext.Provider value={{ 
                 ...this.state,
                 storeUserHandleInContext: this.storeUserHandleInContext,
                 storeUserPasswordInContext: this.storeUserPasswordInContext,
-                storeUserIdInContext: this.storeUserIdInContext}}>{this.props.children}</UserContext.Provider>
+                storeUserIdInContext: this.storeUserIdInContext,
+                storeCurrentSessionKeyInContext: this.storeCurrentSessionKeyInContext}}>{this.props.children}</UserContext.Provider>
         )
     }
 }
