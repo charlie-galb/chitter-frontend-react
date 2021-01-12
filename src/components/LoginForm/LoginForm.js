@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext.js';
 
 const LoginForm = () => {
  
     const { storeUserHandleInContext, storeUserPasswordInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
+    const [redirect, setRedirect] = useState(null)
     const [handle, setHandle] = useState("");
     const [password, setPassword] = useState("");
 
@@ -20,15 +22,13 @@ const LoginForm = () => {
       }
 
     const handleSubmit = async (event) => {
-        console.log("inside handleSubmit")
-        console.log(handle)
         event.preventDefault();
         try {
             const response = await axios.post(
                 "https://chitter-backend-api-v2.herokuapp.com/sessions", {session: {handle: handle, password: password }}
             );
             if (response.data) {
-                console.log("Success!")
+                setRedirect("/timeline")
                 storeUserHandleInContext(handle)
                 storeUserPasswordInContext(password)
                 storeUserIdInContext(response.data.id)
@@ -38,6 +38,9 @@ const LoginForm = () => {
         } catch (error) {
             console.log("Error:", error)
         }
+    }
+    if (redirect) {
+        return <Redirect to={redirect} />
     }
     return (
         <Form>
