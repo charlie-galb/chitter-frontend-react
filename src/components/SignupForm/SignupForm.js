@@ -6,7 +6,7 @@ import { UserContext } from '../../contexts/UserContext.js';
 
 const SignupForm = () => {
  
-    const { storeUserHandleInContext, storeUserPasswordInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
+    const { storeUserHandleInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
     const [redirect, setRedirect] = useState(null)
     const [handle, setHandle] = useState("");
     const [password, setPassword] = useState("");
@@ -51,7 +51,6 @@ const SignupForm = () => {
             if (response.data.handle === handle) {
                 sendLoginData()
                 storeUserHandleInContext(handle)
-                storeUserPasswordInContext(password)
                 storeUserIdInContext(response.data.id)
             }
         } catch (error) {
