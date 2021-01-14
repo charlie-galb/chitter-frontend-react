@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import axios from "axios";
+import { render, screen } from "@testing-library/react";
 import Peep from './Peep.js';
 
  describe("PeepList", () => {
@@ -23,9 +22,9 @@ import Peep from './Peep.js';
     }
   
   test('renders without crashing', () => {
-    const peepListContainer = document.createElement("div");
-    ReactDOM.render(<Peep peepData={mockPeepData}/>, peepListContainer);
-    expect(peepListContainer.querySelector("p").textContent).toBe("my first peep :)");
+    const peep = render(<Peep key='1' peepData={mockPeepData}/>);
+    screen.debug()
+    expect(peep).toMatchSnapshot()
   });
 
  }) 
