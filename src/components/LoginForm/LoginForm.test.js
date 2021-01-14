@@ -2,11 +2,7 @@ import React from 'react';
 import {render, fireEvent, cleanup} from '@testing-library/react';
 import axios from "axios";
 import LoginForm from './LoginForm.js';
-import UserContextProvider from '../../contexts/UserContext.js';
-
-beforeAll(() => {
-    jest.mock("axios")
-  })
+import { UserContext } from '../../contexts/UserContext.js';
 
   afterAll(() => {
     jest.resetAllMocks()
@@ -15,8 +11,13 @@ beforeAll(() => {
 afterEach(cleanup)
 
  it('submits the correct info to the api', async () => {
+    const mockContext = {
+      storeUserHandleInContext: jest.fn(),
+      storeUserIdInContext: jest.fn(),
+      storeCurrentSessionKeyInContext: jest.fn()
+    }
     let axiosSpy = jest.spyOn(axios, "post")
-    const { getByText, getByTestId } = render(<UserContextProvider><LoginForm /></UserContextProvider>);
+    const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><LoginForm /></UserContext.Provider>);
     fireEvent.change(getByTestId("log-in-handle-input"), {target: {value: 'test handle' } } )
     fireEvent.change(getByTestId("log-in-password-input"), {target: {value: 'test password' } } )
     fireEvent.click(getByText('Submit'))
