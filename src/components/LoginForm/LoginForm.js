@@ -6,7 +6,7 @@ import { UserContext } from '../../contexts/UserContext.js';
 
 const LoginForm = () => {
  
-    const { storeUserHandleInContext, storeUserPasswordInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
+    const { storeUserHandleInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
     const [redirect, setRedirect] = useState(null)
     const [handle, setHandle] = useState("");
     const [password, setPassword] = useState("");
@@ -30,7 +30,6 @@ const LoginForm = () => {
             if (response.data) {
                 setRedirect("/timeline")
                 storeUserHandleInContext(handle)
-                storeUserPasswordInContext(password)
                 storeUserIdInContext(response.data.id)
                 storeCurrentSessionKeyInContext(response.data.session_key)
                 console.log(response.data)
