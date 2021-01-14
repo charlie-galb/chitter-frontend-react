@@ -4,7 +4,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext.js';
 import Navbar from './Navbar.js';
 
-describe("PeepList", () => {
+describe("Navbar", () => {
 
   const mockContext = {
     storeUserHandleInContext: jest.fn(),
