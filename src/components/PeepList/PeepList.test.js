@@ -19,10 +19,10 @@ import PeepList from './PeepList.js';
     expect(peepListContainer.querySelector("p").textContent).toBe("OneTwoThree");
   });
 
-  test('makes a get request', async () => {
+  test('makes a get request', () => {
     let axiosSpy = jest.spyOn(axios, "get")
     const peepListContainer = document.createElement("div");
-    await ReactDOM.render(<PeepList />, peepListContainer)
+    ReactDOM.render(<PeepList />, peepListContainer)
     expect(axiosSpy).toHaveBeenCalledWith("https://chitter-backend-api-v2.herokuapp.com/peeps")
   });
 
