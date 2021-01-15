@@ -14,7 +14,7 @@ beforeAll(() => {
 
 afterEach(cleanup)
 
- it('submits the correct info to the api', async () => {
+ it('submits the correct info to the api', () => {
     let axiosSpy = jest.spyOn(axios, "post")
     const mockContext = {
       storeUserHandleInContext: jest.fn(),
