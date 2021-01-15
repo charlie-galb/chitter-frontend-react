@@ -5,7 +5,7 @@ const PeepList = (props) => {
 
     if (props.peeps) {
       return props.peeps.map((singlePeep, i) => (
-        <Peep key={singlePeep.id} peepData={singlePeep}/>
+        <Peep retrievePeeps={props.retrievePeeps} key={singlePeep.id} peepData={singlePeep}/>
       )
       )}
 
