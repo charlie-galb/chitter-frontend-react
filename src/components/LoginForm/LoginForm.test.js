@@ -10,7 +10,7 @@ import { UserContext } from '../../contexts/UserContext.js';
 
 afterEach(cleanup)
 
- it('submits the correct info to the api', async () => {
+ it('submits the correct info to the api', () => {
     const mockContext = {
       storeUserHandleInContext: jest.fn(),
       storeUserIdInContext: jest.fn(),
