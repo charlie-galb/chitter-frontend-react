@@ -30,7 +30,7 @@ const LoginForm = () => {
             if (response.data) {
                 setRedirect("/timeline")
                 storeUserHandleInContext(handle)
-                storeUserIdInContext(response.data.id)
+                storeUserIdInContext(response.data.user_id)
                 storeCurrentSessionKeyInContext(response.data.session_key)
                 console.log(response.data)
             }
