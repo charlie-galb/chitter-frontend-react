@@ -1,30 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Peep from '../Peep/Peep.js'
 
-const PeepList = () => {
-    const [peeps, setPeeps] = useState(null)
+const PeepList = (props) => {
 
-    let list = ["One", "Two", "Three"]
-
-    useEffect( () => {
-      async function retrievePeeps(){
-        await axios.get("https://chitter-backend-api-v2.herokuapp.com/peeps")
-        .then((response) => {setPeeps(response.data)})
-      }
-      retrievePeeps()
-    }, []);
-
-    if (peeps) {
-      return peeps.map((singlePeep, i) => (
+    if (props.peeps) {
+      return props.peeps.map((singlePeep, i) => (
         <Peep key={singlePeep.id} peepData={singlePeep}/>
       )
       )}
 
     return (
-        <div>
-            <p>{list}</p>
-        </div>
+        <div></div>
     )
 }
 
