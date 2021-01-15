@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PeepList renders without crashing 1`] = `
+exports[`Peep renders without crashing 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -34,6 +34,12 @@ Object {
               type="button"
             >
               Like
+            </button>
+            <button
+              class="btn btn-secondary btn-sm"
+              type="button"
+            >
+              Delete
             </button>
             <div
               class="text-muted card-footer"
@@ -77,6 +83,12 @@ Object {
             type="button"
           >
             Like
+          </button>
+          <button
+            class="btn btn-secondary btn-sm"
+            type="button"
+          >
+            Delete
           </button>
           <div
             class="text-muted card-footer"
