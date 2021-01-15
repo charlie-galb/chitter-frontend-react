@@ -20,7 +20,7 @@ const Timeline = () => {
         <div>
             <h2 data-testid="timeline-h2">Timeline</h2>
             <NewPeepForm retrievePeeps={retrievePeeps}/>
-            <PeepList peeps={peeps} />
+            <PeepList retrievePeeps={retrievePeeps} peeps={peeps} />
         </div>
     )
     
