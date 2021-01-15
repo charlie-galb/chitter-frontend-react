@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext.js';
 
-const NewPeepForm = () => {
+const NewPeepForm = (props) => {
  
     const { userHandle, userId, currentSessionKey } = useContext(UserContext)
     const [peepBody, setPeepBody] = useState("")
@@ -17,15 +17,13 @@ const NewPeepForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            console.log(peepBody)
-            console.log(userId)
-            console.log(currentSessionKey)
             const response = await axios.post("https://chitter-backend-api-v2.herokuapp.com/peeps", {peep: {user_id:`${userId}`, body:`${peepBody}`}}, 
             {headers: {
                   Authorization: `Token ${currentSessionKey}` 
                 }});
             if (response.data) {
                 console.log(response.data)
+                props.retrievePeeps()
             }
         } catch (error) {
             console.log("Error:", error)
