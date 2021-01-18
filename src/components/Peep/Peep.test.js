@@ -50,10 +50,12 @@ import Peep from './Peep.js';
     expect(queryByTestId(/Like/)).toBeNull();
   })
 
-  test("users can like someone else's post", () => {
+  test("users can like someone else's post only once", () => {
     mockContext.userId = 3
     let axiosSpy = jest.spyOn(axios, "put")
     const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
+    expect(getByTestId('like-count').textContent).toBe("Liked by 1")
+    fireEvent.click(getByText('Like'))
     fireEvent.click(getByText('Like'))
     expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
     {params: {}},
