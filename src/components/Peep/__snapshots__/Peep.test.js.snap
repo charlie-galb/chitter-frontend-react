@@ -31,15 +31,10 @@ Object {
             </p>
             <button
               class="btn btn-secondary btn-sm"
+              data-testid="delete-button"
               type="button"
             >
               Delete
-            </button>
-            <button
-              class="btn btn-secondary btn-sm"
-              type="button"
-            >
-              Like
             </button>
             <div
               class="text-muted card-footer"
@@ -81,15 +76,10 @@ Object {
           </p>
           <button
             class="btn btn-secondary btn-sm"
+            data-testid="delete-button"
             type="button"
           >
             Delete
-          </button>
-          <button
-            class="btn btn-secondary btn-sm"
-            type="button"
-          >
-            Like
           </button>
           <div
             class="text-muted card-footer"
