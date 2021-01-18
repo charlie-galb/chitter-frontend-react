@@ -43,6 +43,7 @@ Object {
             </button>
             <div
               class="text-muted card-footer"
+              data-testid="like-count"
             >
               Liked by 
               1
@@ -92,6 +93,7 @@ Object {
           </button>
           <div
             class="text-muted card-footer"
+            data-testid="like-count"
           >
             Liked by 
             1
