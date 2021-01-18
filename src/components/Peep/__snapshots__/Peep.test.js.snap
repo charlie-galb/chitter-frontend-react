@@ -33,13 +33,13 @@ Object {
               class="btn btn-secondary btn-sm"
               type="button"
             >
-              Like
+              Delete
             </button>
             <button
               class="btn btn-secondary btn-sm"
               type="button"
             >
-              Delete
+              Like
             </button>
             <div
               class="text-muted card-footer"
@@ -82,13 +82,13 @@ Object {
             class="btn btn-secondary btn-sm"
             type="button"
           >
-            Like
+            Delete
           </button>
           <button
             class="btn btn-secondary btn-sm"
             type="button"
           >
-            Delete
+            Like
           </button>
           <div
             class="text-muted card-footer"
