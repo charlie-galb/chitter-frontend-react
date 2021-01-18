@@ -17,5 +17,5 @@ This is a list of features in order of priority. Those that have been crossed ou
 - ~~Logging in~~
 - ~~Posting Peeps~~
 - ~~Deleting Peeps~~
-- Liking Peeps
-- Unliking Peeps
+- ~~Liking Peeps~~
+- ~~Unliking Peeps~~
