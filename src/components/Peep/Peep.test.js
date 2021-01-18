@@ -35,11 +35,25 @@ import Peep from './Peep.js';
     expect(peep).toMatchSnapshot()
   });
 
-  test('can delete itself', () => {
+  test('users can delete it', () => {
     let axiosSpy = jest.spyOn(axios, "delete")
     const { getByText } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
     fireEvent.click(getByText('Delete'))
-    expect(axiosSpy).toHaveBeenCalled()
+    expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}`, 
+    {headers: {
+          Authorization: `Token ${mockContext.currentSessionKey}` 
+        }})
+  });
+
+  test('users can like it', () => {
+    let axiosSpy = jest.spyOn(axios, "put")
+    const { getByText } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
+    fireEvent.click(getByText('Like'))
+    expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
+    {params: {}},
+    {headers: {
+      Authorization: `Token ${mockContext.currentSessionKey}` 
+    }})
   });
 
  }) 
