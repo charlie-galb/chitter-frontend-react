@@ -47,13 +47,14 @@ import Peep from './Peep.js';
 
   test('users can like it', () => {
     let axiosSpy = jest.spyOn(axios, "put")
-    const { getByText } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
+    const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
     fireEvent.click(getByText('Like'))
     expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
     {params: {}},
     {headers: {
       Authorization: `Token ${mockContext.currentSessionKey}` 
     }})
+    setTimeout(() => { expect(getByTestId('like-count').textContent).toBe("Liked by 2"); }, 0)
   });
 
  }) 
