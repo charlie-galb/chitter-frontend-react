@@ -5,14 +5,19 @@ import { UserContext } from '../../contexts/UserContext.js';
 
 function Navbar() {
 
-  const { storeUserHandleInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
+  const { storeUserHandleInContext, storeUserIdInContext, storeCurrentSessionKeyInContext, currentSessionKey } = useContext(UserContext)
 
 
   const handleLogout = () => {
-    console.log("Click is working")
     storeUserHandleInContext('') 
     storeUserIdInContext('') 
     storeCurrentSessionKeyInContext('')
+  }
+
+  const renderLogoutLink = () => {
+    if (currentSessionKey != "") {
+      return <Link to='/' className="nav-link" id="log-out-link" data-testid="log-out-link" >Log out</Link>
+    }
   }
 
     return (
@@ -21,7 +26,7 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item" onClick={handleLogout}>
-              <Link to='/' className="nav-link" id="log-out-link" data-testid="log-out-link" >Log out</Link>
+              {renderLogoutLink()}
             </li>
           </ul>
         </div>
