@@ -7,7 +7,7 @@ import Peep from './Peep.js';
  describe("Peep", () => {
 
   const mockContext = {
-    userId: "1",
+    userId: 1,
     currentSessionKey: "_2a_12_A9rsHFpqa9xB0k_lIdNlH_"
   }
 
@@ -22,7 +22,7 @@ import Peep from './Peep.js';
       },
       "likes": [{
         "user": {
-          "id": 1,
+          "id": 2,
           "handle": "kay"
         }
       }]
@@ -35,7 +35,7 @@ import Peep from './Peep.js';
     expect(peep).toMatchSnapshot()
   });
 
-  test('users can delete it', () => {
+  test('the current user can delete it', () => {
     let axiosSpy = jest.spyOn(axios, "delete")
     const { getByText } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
     fireEvent.click(getByText('Delete'))
@@ -45,7 +45,13 @@ import Peep from './Peep.js';
         }})
   });
 
-  test('users can like it', () => {
+  test("the current user can't like their own post", () => {
+    const { queryByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
+    expect(queryByTestId(/Like/)).toBeNull();
+  })
+
+  test("users can like someone else's post", () => {
+    mockContext.userId = 3
     let axiosSpy = jest.spyOn(axios, "put")
     const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
     fireEvent.click(getByText('Like'))
@@ -57,4 +63,15 @@ import Peep from './Peep.js';
     setTimeout(() => { expect(getByTestId('like-count').textContent).toBe("Liked by 2"); }, 0)
   });
 
- }) 
+  test('users can unlike a post', () => {
+    mockContext.userId = 2
+    let axiosSpy = jest.spyOn(axios, "delete")
+    const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
+    fireEvent.click(getByText('Unlike'))
+    expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
+    {headers: {
+      Authorization: `Token ${mockContext.currentSessionKey}` 
+    }})
+    setTimeout(() => { expect(getByTestId('like-count').textContent).toBe("Liked by 0"); }, 0)
+  });
+}) 
