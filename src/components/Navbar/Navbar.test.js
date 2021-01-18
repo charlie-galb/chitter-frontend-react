@@ -7,20 +7,19 @@ import Navbar from './Navbar.js';
 describe("Navbar", () => {
 
   const mockContext = {
+    currentSessionKey: "",
     storeUserHandleInContext: jest.fn(),
     storeUserIdInContext: jest.fn(),
     storeCurrentSessionKeyInContext: jest.fn()
   }
   
-  test('renders without crashing', () => {
-    const navbar = render(<UserContext.Provider value={mockContext}><Router><Navbar /></Router></UserContext.Provider>);
-    expect(navbar.getByTestId("log-out-link").textContent).toBe("Log out");
-    expect(mockContext.storeUserHandleInContext).not.toHaveBeenCalled()
-    expect(mockContext.storeUserIdInContext).not.toHaveBeenCalled()
-    expect(mockContext.storeCurrentSessionKeyInContext).not.toHaveBeenCalled()
+  test('does not render the log out link if user is not signed in', () => {
+    const { queryByTestId } = render(<UserContext.Provider value={mockContext}><Router><Navbar /></Router></UserContext.Provider>);
+    expect(queryByTestId(/Log out/)).toBeNull();
   });
 
   test('resets session-related state', async () => {
+    mockContext.currentSessionKey = "A_valid_session_key"
     const { getByText } = render(<UserContext.Provider value={mockContext}><Router><Navbar /></Router></UserContext.Provider>);
     fireEvent.click(getByText('Log out'))
     fireEvent.click(getByText('Log out'))
