@@ -5,8 +5,8 @@ import { UserContext } from '../../contexts/UserContext.js';
 
 const Peep = (props) => {
 
-    const { userId, currentSessionKey } = useContext(UserContext)
-    const [likes, setLikes] = useState(props.peepData.likes.length);
+    const { userId, currentSessionKey, userHandle } = useContext(UserContext) 
+    const likesUserIdArray = props.peepData.likes.map(like => like.user.id)
 
     const handleLike = async (event) => {
         event.preventDefault();
@@ -19,8 +19,22 @@ const Peep = (props) => {
             }});
             if (response.data.user.id === userId) {
                 console.log(response.data)
-                setLikes(likes + 1)
+                props.retrievePeeps()
             }
+        } catch (error) {
+            console.log("Error:", error)
+        }
+    }
+
+    const handleUnlike = async (event) => {
+        event.preventDefault();
+        try {
+            console.log(currentSessionKey)
+            const response = await axios.delete(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}/likes/${userId}`,  
+            {headers: {
+              Authorization: `Token ${currentSessionKey}` 
+            }});
+            props.retrievePeeps()
         } catch (error) {
             console.log("Error:", error)
         }
@@ -40,10 +54,20 @@ const Peep = (props) => {
     }
 
     const renderDeleteButton = () => {
-        console.log(userId)
-        console.log(props.peepData.user.id)
         if (userId == props.peepData.user.id) {
-            return <Button variant="secondary" size="sm" onClick={handleDelete}>Delete</Button>
+            return <Button variant="secondary" size="sm" onClick={handleDelete} data-testid='delete-button'>Delete</Button>
+        }
+    }
+
+    const renderLikeButton = () => {
+        if ((userId != props.peepData.user.id) && (!likesUserIdArray.includes(userId))) {
+            return <Button variant="secondary" size="sm" onClick={handleLike} data-testid='like-button'>Like</Button>
+        }
+    }
+
+    const renderUnlikeButton = () => {
+        if ((userId != props.peepData.user.id) && (likesUserIdArray.includes(userId))) {
+            return <Button variant="secondary" size="sm" onClick={handleUnlike} data-testid='unlike-button'>Unlike</Button>
         }
     }
 
@@ -55,8 +79,9 @@ const Peep = (props) => {
                 <Card.Body>
                     <Card.Text>{props.peepData.body}</Card.Text>
                     {renderDeleteButton()}
-                    <Button variant="secondary" size="sm" onClick={handleLike}>Like</Button>
-                    <Card.Footer className="text-muted" data-Testid='like-count'>Liked by {likes}</Card.Footer>
+                    {renderLikeButton()}
+                    {renderUnlikeButton()}
+                    <Card.Footer className="text-muted" data-testid='like-count'>Liked by {props.peepData.likes.length}</Card.Footer>
                 </Card.Body>
             </Card>
             <br />
