@@ -28,11 +28,10 @@ const LoginForm = () => {
                 "https://chitter-backend-api-v2.herokuapp.com/sessions", {session: {handle: handle, password: password }}
             );
             if (response.data) {
-                setRedirect("/timeline")
                 storeUserHandleInContext(handle)
                 storeUserIdInContext(response.data.user_id)
                 storeCurrentSessionKeyInContext(response.data.session_key)
-                console.log(response.data)
+                setRedirect("/timeline")
             }
         } catch (error) {
             console.log("Error:", error)
