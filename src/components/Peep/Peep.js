@@ -56,7 +56,7 @@ const Peep = (props) => {
                     <Card.Text>{props.peepData.body}</Card.Text>
                     {renderDeleteButton()}
                     <Button variant="secondary" size="sm" onClick={handleLike}>Like</Button>
-                    <Card.Footer className="text-muted">Liked by {props.peepData.likes.length}</Card.Footer>
+                    <Card.Footer className="text-muted" data-Testid='like-count'>Liked by {likes}</Card.Footer>
                 </Card.Body>
             </Card>
             <br />
