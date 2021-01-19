@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import {Link} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar as BootNavbar } from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav'
 import { UserContext } from '../../contexts/UserContext.js';
 
 function Navbar() {
@@ -16,21 +17,18 @@ function Navbar() {
 
   const renderLogoutLink = () => {
     if (currentSessionKey != "") {
-      return <Link to='/' className="nav-link" id="log-out-link" data-testid="log-out-link" >Log out</Link>
+      return <Link to='/' className="nav-link" id="log-out-link" data-testid="log-out-link" eventKey="1" onClick={handleLogout}>Log out</Link>
     }
   }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Chitter</a>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item" onClick={handleLogout}>
-              {renderLogoutLink()}
-            </li>
-          </ul>
-        </div>
-      </nav>
+
+      <BootNavbar bg="light" variant="light">
+        <Link to='/' className="navbar-brand" data-testid='navbar-logo-link'>Chitter</Link>
+        <Nav className="ml-auto">
+          {renderLogoutLink()}
+        </Nav>
+      </BootNavbar>
     )
 }
 
