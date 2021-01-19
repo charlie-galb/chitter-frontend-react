@@ -11,7 +11,6 @@ const Peep = (props) => {
     const handleLike = async (event) => {
         event.preventDefault();
         try {
-            console.log(currentSessionKey)
             const response = await axios.put(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}/likes/${userId}`, 
             {params: {}}, 
             {headers: {
@@ -29,7 +28,6 @@ const Peep = (props) => {
     const handleUnlike = async (event) => {
         event.preventDefault();
         try {
-            console.log(currentSessionKey)
             const response = await axios.delete(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}/likes/${userId}`,  
             {headers: {
               Authorization: `Token ${currentSessionKey}` 
