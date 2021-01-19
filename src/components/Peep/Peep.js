@@ -1,12 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext.js';
 
 const Peep = (props) => {
 
-    const { userId, currentSessionKey, userHandle } = useContext(UserContext) 
+    const { userId, currentSessionKey } = useContext(UserContext) 
     const likesUserIdArray = props.peepData.likes.map(like => like.user.id)
+    const readableTimeString = new Date(props.peepData.created_at).toTimeString()
+    const readableDateString = new Date(props.peepData.created_at).toDateString()
 
     const handleLike = async (event) => {
         event.preventDefault();
@@ -28,7 +30,7 @@ const Peep = (props) => {
     const handleUnlike = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.delete(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}/likes/${userId}`,  
+            await axios.delete(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}/likes/${userId}`,  
             {headers: {
               Authorization: `Token ${currentSessionKey}` 
             }});
@@ -71,9 +73,9 @@ const Peep = (props) => {
 
     return (
         <div>
-            <Card border="dark" style={{ width: '18rem' }}>
-                <Card.Header>{props.peepData.user.handle}</Card.Header>
-                <Card.Subtitle className="mb-2 text-muted">Posted at {props.peepData.created_at}</Card.Subtitle>
+            <Card className="mx-auto" border="dark" style={{ width: '18rem', margin: '1rem' }}>
+                <Card.Title>{props.peepData.user.handle}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted" data-testid='peep-time-stamp'>Posted at {readableTimeString.slice(0, 5)} on {readableDateString}</Card.Subtitle>
                 <Card.Body>
                     <Card.Text>{props.peepData.body}</Card.Text>
                     {renderDeleteButton()}
