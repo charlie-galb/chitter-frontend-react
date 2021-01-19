@@ -22,6 +22,7 @@ const NewPeepForm = (props) => {
                 }});
             if (response.data) {
                 console.log(response.data)
+                setPeepBody("");
                 props.retrievePeeps()
             }
         } catch (error) {
