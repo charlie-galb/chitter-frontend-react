@@ -54,19 +54,19 @@ const Peep = (props) => {
     }
 
     const renderDeleteButton = () => {
-        if (userId == props.peepData.user.id) {
+        if (userId === props.peepData.user.id) {
             return <Button variant="secondary" size="sm" onClick={handleDelete} data-testid='delete-button'>Delete</Button>
         }
     }
 
     const renderLikeButton = () => {
-        if ((userId != props.peepData.user.id) && (!likesUserIdArray.includes(userId))) {
+        if ((userId !== props.peepData.user.id) && (!likesUserIdArray.includes(userId))) {
             return <Button variant="secondary" size="sm" onClick={handleLike} data-testid='like-button'>Like</Button>
         }
     }
 
     const renderUnlikeButton = () => {
-        if ((userId != props.peepData.user.id) && (likesUserIdArray.includes(userId))) {
+        if ((userId !== props.peepData.user.id) && (likesUserIdArray.includes(userId))) {
             return <Button variant="secondary" size="sm" onClick={handleUnlike} data-testid='unlike-button'>Unlike</Button>
         }
     }
