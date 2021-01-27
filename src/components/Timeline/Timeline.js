@@ -17,7 +17,7 @@ const Timeline = () => {
         const response = await axios.get("https://chitter-backend-api-v2.herokuapp.com/peeps")
         if (response.data) { setPeeps(response.data) } 
       } catch (error) {
-            console.log("Error:", error)
+            console.error("Error:", error)
         }
     }
       
