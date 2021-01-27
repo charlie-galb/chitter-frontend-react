@@ -5,7 +5,7 @@ import { UserContext } from '../../contexts/UserContext.js';
 
 const NewPeepForm = (props) => {
  
-    const { userHandle, userId, currentSessionKey } = useContext(UserContext)
+    const { userId, currentSessionKey } = useContext(UserContext)
     const [peepBody, setPeepBody] = useState("")
 
     const handlePeepBodyChange = (event) => {
@@ -26,7 +26,7 @@ const NewPeepForm = (props) => {
                 props.retrievePeeps()
             }
         } catch (error) {
-            console.log("Error:", error)
+            console.error("Error:", error)
         }
     }
 
