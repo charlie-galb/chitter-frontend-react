@@ -38,7 +38,7 @@ const SignupForm = () => {
                 console.log(response.data)
             }
         } catch (error) {
-            console.log("Error:", error)
+            console.error("Error:", error)
         }
     }
 
@@ -54,7 +54,7 @@ const SignupForm = () => {
                 storeUserIdInContext(response.data.id)
             }
         } catch (error) {
-            console.log("Error:", error)
+            console.error("Error:", error)
         }
     }
     if (redirect) {
