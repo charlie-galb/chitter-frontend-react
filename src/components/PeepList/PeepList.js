@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Peep from '../Peep/Peep.js'
 
 const PeepList = (props) => {
