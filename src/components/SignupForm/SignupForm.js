@@ -30,12 +30,11 @@ const SignupForm = () => {
     const sendLoginData = async () => {
         try {
             const response = await axios.post(
-                "https://chitter-backend-api-v2.herokuapp.com/sessions", {session: {handle: handle, password: password }}
+                `${process.env.REACT_APP_BACKEND_URL_DEV}/sessions`, {session: {handle: handle, password: password }}
             );
             if (response.data) {
                 setRedirect('/timeline')
                 storeCurrentSessionKeyInContext(response.data.session_key)
-                console.log(response.data)
             }
         } catch (error) {
             console.error("Error:", error)
@@ -45,8 +44,9 @@ const SignupForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+            console.log(process.env.REACT_APP_BACKEND_URL_DEV)
             const response = await axios.post(
-                "https://chitter-backend-api-v2.herokuapp.com/users", {user: {handle: handle, password: password }}
+                `${process.env.REACT_APP_BACKEND_URL_DEV}/users`, {user: {handle: handle, password: password }}
             );
             if (response.data.handle === handle) {
                 sendLoginData()
