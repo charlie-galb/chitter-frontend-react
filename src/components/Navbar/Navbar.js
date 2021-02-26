@@ -17,7 +17,7 @@ function Navbar() {
 
   const renderLogoutLink = () => {
     if (currentSessionKey !== "") {
-      return <Link to='/' className="nav-link" id="log-out-link" data-testid="log-out-link" eventKey="1" onClick={handleLogout}>Log out</Link>
+      return <Link to='/' className="nav-link" id="log-out-link" data-testid="log-out-link" onClick={handleLogout}>Log out</Link>
     }
   }
 
