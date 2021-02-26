@@ -14,7 +14,7 @@ const Timeline = () => {
     const retrievePeeps = async () => {
       if (currentSessionKey === "") {setRedirect('/')}
       try {
-        const response = await axios.get("https://chitter-backend-api-v2.herokuapp.com/peeps")
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps`)
         if (response.data) { setPeeps(response.data) } 
       } catch (error) {
             console.error("Error:", error)
