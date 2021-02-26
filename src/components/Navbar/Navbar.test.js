@@ -1,7 +1,6 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react';
 import {BrowserRouter as Router, MemoryRouter} from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import { UserContext } from '../../contexts/UserContext.js';
 import Navbar from './Navbar.js';
 
