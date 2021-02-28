@@ -39,9 +39,9 @@ import Peep from './Peep.js';
     let axiosSpy = jest.spyOn(axios, "delete")
     const { getByText } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
     fireEvent.click(getByText('Delete'))
-    expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}`, 
+    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps/${mockPeepData.id}`, 
     {headers: {
-          Authorization: `Token ${mockContext.currentSessionKey}` 
+          Authorization: mockContext.currentSessionKey 
         }})
   });
 
@@ -57,10 +57,9 @@ import Peep from './Peep.js';
     expect(getByTestId('like-count').textContent).toBe("Liked by 1")
     fireEvent.click(getByText('Like'))
     fireEvent.click(getByText('Like'))
-    expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
-    {params: {}},
+    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
     {headers: {
-      Authorization: `Token ${mockContext.currentSessionKey}` 
+      Authorization: mockContext.currentSessionKey 
     }})
     setTimeout(() => { expect(getByTestId('like-count').textContent).toBe("Liked by 2"); }, 0)
   });
@@ -70,9 +69,9 @@ import Peep from './Peep.js';
     let axiosSpy = jest.spyOn(axios, "delete")
     const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
     fireEvent.click(getByText('Unlike'))
-    expect(axiosSpy).toHaveBeenCalledWith(`https://chitter-backend-api-v2.herokuapp.com/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
+    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
     {headers: {
-      Authorization: `Token ${mockContext.currentSessionKey}` 
+      Authorization: mockContext.currentSessionKey
     }})
     setTimeout(() => { expect(getByTestId('like-count').textContent).toBe("Liked by 0"); }, 0)
   });
