@@ -14,7 +14,10 @@ const Timeline = () => {
     const retrievePeeps = async () => {
       if (currentSessionKey === "") {setRedirect('/')}
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps`)
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps`, 
+        {headers: {
+          authorization: currentSessionKey}
+        })
         if (response.data) { setPeeps(response.data) } 
       } catch (error) {
             console.error("Error:", error)
