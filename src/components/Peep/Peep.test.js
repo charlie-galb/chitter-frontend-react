@@ -57,7 +57,8 @@ import Peep from './Peep.js';
     expect(getByTestId('like-count').textContent).toBe("Liked by 1")
     fireEvent.click(getByText('Like'))
     fireEvent.click(getByText('Like'))
-    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
+    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps/${mockPeepData.id}/likes/${mockContext.userId}`,
+    {credentials: 'include'},  
     {headers: {
       Authorization: mockContext.currentSessionKey 
     }})
