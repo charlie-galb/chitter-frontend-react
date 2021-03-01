@@ -18,7 +18,9 @@ const Timeline = () => {
         {headers: {
           authorization: currentSessionKey}
         })
+
         if (response.data) { setPeeps(response.data) } 
+        
       } catch (error) {
             console.error("Error:", error)
         }
