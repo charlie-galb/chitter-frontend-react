@@ -6,21 +6,27 @@ import { UserContext } from '../../contexts/UserContext.js';
 const Peep = (props) => {
 
     const { userId, currentSessionKey } = useContext(UserContext) 
-    const likesUserIdArray = props.peepData.likes.map(like => like.user.id)
+    const likesUserIdArray = []
     const readableTimeString = new Date(props.peepData.created_at).toTimeString()
     const readableDateString = new Date(props.peepData.created_at).toDateString()
+
+    if (props.peepData.likes != null) {
+        props.peepData.likes.forEach( (like) => {
+            if (like) { likesUserIdArray.push(like.user.id) }
+        })
+    }
 
     const handleLike = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps/${props.peepData.id}/likes/${userId}`,  
+            const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps/${props.peepData.id}/likes/${userId}`,
+            {credentials: 'include'},  
             {headers: {
-              Authorization: currentSessionKey 
-            }});
-            if (response.data.user.id === userId) {
-                console.log(response.data)
-                props.retrievePeeps()
-            }
+                Authorization: currentSessionKey
+              }});
+            
+            props.retrievePeeps()
+            
         } catch (error) {
             console.log("Error:", error)
         }
