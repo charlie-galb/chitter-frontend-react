@@ -15,10 +15,9 @@ import PeepList from './PeepList.js';
         "handle": "kay"
       },
       "likes": [{
-        "user": {
-          "id": 1,
-          "handle": "kay"
-        }
+        
+        "id": 1,
+        "user_id": 2
       }]
   }
 
