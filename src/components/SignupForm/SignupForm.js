@@ -30,7 +30,7 @@ const SignupForm = () => {
     const sendLoginData = async () => {
         try {
             const response = await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL_DEV}/sessions`, {session: {handle: handle, password: password }}
+                `${process.env.BACKEND_URL}/sessions`, {session: {handle: handle, password: password }}
             );
             if (response.data) {
                 setRedirect('/timeline')
@@ -44,9 +44,8 @@ const SignupForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            console.log(process.env.REACT_APP_BACKEND_URL_DEV)
             const response = await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL_DEV}/users`, {user: {handle: handle, password: password }}
+                `${process.env.BACKEND_URL}/users`, {user: {handle: handle, password: password }}
             );
             if (response.data.handle === handle) {
                 sendLoginData()

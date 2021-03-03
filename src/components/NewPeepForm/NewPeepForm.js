@@ -16,7 +16,7 @@ const NewPeepForm = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps`, {peep: {user_id:`${userId}`, body:`${peepBody}`}}, 
+            const response = await axios.post(`${process.env.BACKEND_URL}/peeps`, {peep: {user_id:`${userId}`, body:`${peepBody}`}}, 
             {headers: {
                   Authorization: currentSessionKey
                 }});

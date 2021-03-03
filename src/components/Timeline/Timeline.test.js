@@ -17,10 +17,8 @@ describe("Timeline", () => {
           "handle": "kay"
         },
         "likes": [{
-          "user": {
-            "id": 1,
-            "handle": "kay"
-          }
+          "id": 1,
+          "user_id": 2
         }]
     }
   
@@ -36,7 +34,7 @@ describe("Timeline", () => {
         const timeline = render(<UserContext.Provider value={mockContext}><Router><Timeline /></Router></UserContext.Provider>);
         expect(timeline.getByTestId("timeline-h2").textContent).toBe("Timeline");
         expect(timeline.queryByTestId('timeline-redirect-to-home')).toBeNull()
-        expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL_DEV}/peeps`, {"headers": {"authorization": mockContext.currentSessionKey}})
+        expect(axiosSpy).toHaveBeenCalledWith(`${process.env.BACKEND_URL}/peeps`, {"headers": {"authorization": mockContext.currentSessionKey}})
     });
     
     test('redirects to home if no current session key', () => {

@@ -25,7 +25,7 @@ const LoginForm = () => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL_DEV}/sessions`, {session: {handle: handle, password: password }}
+                `${process.env.BACKEND_URL}/sessions`, {session: {handle: handle, password: password }}
             );
             if (response.data) {
                 storeUserHandleInContext(handle)
