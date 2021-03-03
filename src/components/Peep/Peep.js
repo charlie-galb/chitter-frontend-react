@@ -19,12 +19,12 @@ const Peep = (props) => {
     const handleLike = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.put(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,
+            await axios.put(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,
             {credentials: 'include'},  
             {headers: {
                 Authorization: currentSessionKey
               }});
-            
+    
             props.retrievePeeps()
             
         } catch (error) {
