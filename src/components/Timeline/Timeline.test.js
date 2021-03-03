@@ -1,10 +1,9 @@
 import React from 'react';
+import axios from "axios";
 import { render } from "@testing-library/react";
 import {BrowserRouter as Router, Redirect} from 'react-router-dom';
 import Timeline from './Timeline.js';
 import {UserContext} from '../../contexts/UserContext.js';
-
-
 
 describe("Timeline", () => {
 
@@ -18,10 +17,8 @@ describe("Timeline", () => {
           "handle": "kay"
         },
         "likes": [{
-          "user": {
-            "id": 1,
-            "handle": "kay"
-          }
+          "id": 1,
+          "user_id": 2
         }]
     }
   
@@ -31,10 +28,13 @@ describe("Timeline", () => {
       userHandle: "Test Person"
     }
 
+    const axiosSpy = jest.spyOn(axios, "get")
+
     test('renders without crashing', () => {
         const timeline = render(<UserContext.Provider value={mockContext}><Router><Timeline /></Router></UserContext.Provider>);
         expect(timeline.getByTestId("timeline-h2").textContent).toBe("Timeline");
         expect(timeline.queryByTestId('timeline-redirect-to-home')).toBeNull()
+        expect(axiosSpy).toHaveBeenCalledWith(`${process.env.BACKEND_URL}/peeps`, {"headers": {"authorization": mockContext.currentSessionKey}})
     });
     
     test('redirects to home if no current session key', () => {

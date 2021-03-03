@@ -16,9 +16,9 @@ const NewPeepForm = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("https://chitter-backend-api-v2.herokuapp.com/peeps", {peep: {user_id:`${userId}`, body:`${peepBody}`}}, 
+            const response = await axios.post(`${process.env.BACKEND_URL}/peeps`, {peep: {user_id:`${userId}`, body:`${peepBody}`}}, 
             {headers: {
-                  Authorization: `Token ${currentSessionKey}` 
+                  Authorization: currentSessionKey
                 }});
             if (response.data) {
                 console.log(response.data)

@@ -6,22 +6,27 @@ import { UserContext } from '../../contexts/UserContext.js';
 const Peep = (props) => {
 
     const { userId, currentSessionKey } = useContext(UserContext) 
-    const likesUserIdArray = props.peepData.likes.map(like => like.user.id)
+    const likesUserIdArray = []
     const readableTimeString = new Date(props.peepData.created_at).toTimeString()
     const readableDateString = new Date(props.peepData.created_at).toDateString()
+
+    if (props.peepData.likes.length != 0) {
+        props.peepData.likes.forEach( (like) => {
+            if (like) { likesUserIdArray.push(like.user_id) }
+        })
+    }
 
     const handleLike = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.put(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}/likes/${userId}`, 
-            {params: {}}, 
+            const response = await axios.put(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,
+            {credentials: 'include'},  
             {headers: {
-              Authorization: `Token ${currentSessionKey}` 
-            }});
-            if (response.data.user.id === userId) {
-                console.log(response.data)
-                props.retrievePeeps()
-            }
+                Authorization: currentSessionKey
+              }});
+            
+            props.retrievePeeps()
+            
         } catch (error) {
             console.log("Error:", error)
         }
@@ -30,9 +35,9 @@ const Peep = (props) => {
     const handleUnlike = async (event) => {
         event.preventDefault();
         try {
-            await axios.delete(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}/likes/${userId}`,  
+            await axios.delete(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,  
             {headers: {
-              Authorization: `Token ${currentSessionKey}` 
+              Authorization: currentSessionKey 
             }});
             props.retrievePeeps()
         } catch (error) {
@@ -43,9 +48,9 @@ const Peep = (props) => {
     const handleDelete = async (event) => {
         event.preventDefault();
         try {
-            await axios.delete(`https://chitter-backend-api-v2.herokuapp.com/peeps/${props.peepData.id}`, 
+            await axios.delete(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}`, 
             {headers: {
-                  Authorization: `Token ${currentSessionKey}` 
+                  Authorization: currentSessionKey
                 }});
             props.retrievePeeps()
         } catch (error) {

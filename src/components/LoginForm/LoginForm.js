@@ -25,12 +25,12 @@ const LoginForm = () => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                "https://chitter-backend-api-v2.herokuapp.com/sessions", {session: {handle: handle, password: password }}
+                `${process.env.BACKEND_URL}/sessions`, {session: {handle: handle, password: password }}
             );
             if (response.data) {
                 storeUserHandleInContext(handle)
                 storeUserIdInContext(response.data.user_id)
-                storeCurrentSessionKeyInContext(response.data.session_key)
+                storeCurrentSessionKeyInContext(response.data.token)
                 setRedirect("/timeline")
             }
         } catch (error) {

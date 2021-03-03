@@ -4,9 +4,9 @@ import axios from "axios";
 import LoginForm from './LoginForm.js';
 import { UserContext } from '../../contexts/UserContext.js';
 
-  afterAll(() => {
-    jest.resetAllMocks()
-  })
+afterAll(() => {
+  jest.resetAllMocks()
+})
 
 afterEach(cleanup)
 
@@ -16,10 +16,10 @@ afterEach(cleanup)
       storeUserIdInContext: jest.fn(),
       storeCurrentSessionKeyInContext: jest.fn()
     }
-    let axiosSpy = jest.spyOn(axios, "post")
+    const axiosSpy = jest.spyOn(axios, "post")
     const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><LoginForm /></UserContext.Provider>);
     fireEvent.change(getByTestId("log-in-handle-input"), {target: {value: 'test handle' } } )
     fireEvent.change(getByTestId("log-in-password-input"), {target: {value: 'test password' } } )
     fireEvent.click(getByText('Submit'))
-    expect(axiosSpy).toHaveBeenCalledWith("https://chitter-backend-api-v2.herokuapp.com/sessions", {"session": {"handle":"test handle", "password":"test password"}})
+    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.BACKEND_URL}/sessions`, {"session": {"handle":"test handle", "password":"test password"}})
  })

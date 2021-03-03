@@ -21,7 +21,7 @@ afterEach(cleanup)
     fireEvent.change(getByTestId("peep-body-text-input"), {target: {value: 'This peep is for test purposes' } } )
     fireEvent.click(getByText('Post peep'))
     setTimeout(() => {
-        expect(axiosSpy).not.toHaveBeenCalledWith("https://chitter-backend-api-v2.herokuapp.com/peeps", {"peep": {"user_id":"1", "body":"This peep is for test purposes"}}, 
+        expect(axiosSpy).not.toHaveBeenCalledWith(`${process.env.BACKEND_URL}/peeps`, {"peep": {"user_id":"1", "body":"This peep is for test purposes"}}, 
         {"headers": {
               'Authorization': `${mockContext.currentSessionKey}` 
             }});
