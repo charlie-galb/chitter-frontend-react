@@ -27,20 +27,19 @@ import Peep from './Peep.js';
   }
 
   const retrievePeeps = jest.fn()
+  const axiosPutSpy = jest.spyOn(axios, "put")
+  const axiosDeleteSpy = jest.spyOn(axios, "delete")
   
   test('renders without crashing', () => {
     const peep = render(<UserContext.Provider value={mockContext}><Peep key='1' peepData={mockPeepData}/></UserContext.Provider>);
     expect(peep).toMatchSnapshot()
   });
 
-  test('the current user can delete it', () => {
-    let axiosSpy = jest.spyOn(axios, "delete")
+  test('the current user can delete it', async () => {
     const { getByText } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
-    fireEvent.click(getByText('Delete'))
-    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.BACKEND_URL}/peeps/${mockPeepData.id}`, 
-    {headers: {
-          Authorization: mockContext.currentSessionKey 
-        }})
+    await fireEvent.click(getByText('Delete'))
+    expect(axiosDeleteSpy).toHaveBeenCalled()
+    expect(retrievePeeps).toHaveBeenCalledTimes(1)
   });
 
   test("the current user can't like their own post", () => {
@@ -48,30 +47,29 @@ import Peep from './Peep.js';
     expect(queryByTestId(/Like/)).toBeNull();
   })
 
-  test("users can like someone else's post only once", () => {
+  test("users can like someone else's post", async () => {
     mockContext.userId = 3
-    let axiosSpy = jest.spyOn(axios, "put")
-    const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
-    expect(getByTestId('like-count').textContent).toBe("Liked by 1")
-    fireEvent.click(getByText('Like'))
-    fireEvent.click(getByText('Like'))
-    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.BACKEND_URL}/peeps/${mockPeepData.id}/likes/${mockContext.userId}`,
-    {credentials: 'include'},  
-    {headers: {
-      Authorization: mockContext.currentSessionKey 
-    }})
-    setTimeout(() => { expect(getByTestId('like-count').textContent).toBe("Liked by 2"); }, 0)
+    const { getByText } = render(
+    <UserContext.Provider value={mockContext}>
+      <Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/>
+    </UserContext.Provider>
+    );
+
+    await fireEvent.click(getByText('Like'))
+
+    expect(axiosPutSpy).toHaveBeenCalledTimes(1)
+    expect(retrievePeeps).toBeCalledTimes(1)
   });
 
-  test('users can unlike a post', () => {
+  test('users can unlike a post', async () => {
     mockContext.userId = 2
-    let axiosSpy = jest.spyOn(axios, "delete")
-    const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
-    fireEvent.click(getByText('Unlike'))
-    expect(axiosSpy).toHaveBeenCalledWith(`${process.env.BACKEND_URL}/peeps/${mockPeepData.id}/likes/${mockContext.userId}`, 
-    {headers: {
-      Authorization: mockContext.currentSessionKey
-    }})
-    setTimeout(() => { expect(getByTestId('like-count').textContent).toBe("Liked by 0"); }, 0)
+    const { getByText } = render(
+    <UserContext.Provider value={mockContext}>
+      <Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/>
+      </UserContext.Provider>
+      )
+    await fireEvent.click(getByText('Unlike'))
+    expect(axiosDeleteSpy).toHaveBeenCalled()
+    expect(retrievePeeps).toHaveBeenCalledTimes(1)
   });
 }) 
