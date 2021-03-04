@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-import { useMountEffect } from '../../utils/useMountEffect'
 import PeepList from '../PeepList/PeepList.js';
 import NewPeepForm from '../NewPeepForm/NewPeepForm.js'
 import { UserContext } from '../../contexts/UserContext.js';
@@ -28,7 +27,7 @@ const Timeline = () => {
         }
     }
       
-      useMountEffect(retrievePeeps)
+    useEffect(retrievePeeps, [])
  
     if (redirect) {
       return <Redirect to={redirect} data-testid='timeline-redirect-to-home'/>
