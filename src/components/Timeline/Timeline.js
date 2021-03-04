@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-
 import PeepList from '../PeepList/PeepList.js';
 import NewPeepForm from '../NewPeepForm/NewPeepForm.js'
 import { UserContext } from '../../contexts/UserContext.js';
@@ -15,11 +14,11 @@ const Timeline = () => {
     const retrievePeeps = async () => {
       if (currentSessionKey === "") {setRedirect('/')}
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/peeps`, 
+        const response = await axios.get(`${process.env.BACKEND_URL}/peeps`, 
         {headers: {
           authorization: currentSessionKey}
         })
- 
+        
         if (response.data) { setPeeps(response.data) } 
         
       } catch (error) {
@@ -27,7 +26,10 @@ const Timeline = () => {
         }
     }
       
-    useEffect(retrievePeeps, [])
+      useEffect( () => {
+        retrievePeeps()
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
  
     if (redirect) {
       return <Redirect to={redirect} data-testid='timeline-redirect-to-home'/>
