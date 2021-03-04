@@ -18,7 +18,7 @@ const Timeline = () => {
         {headers: {
           authorization: currentSessionKey}
         })
-
+ 
         if (response.data) { setPeeps(response.data) } 
         
       } catch (error) {
@@ -31,7 +31,7 @@ const Timeline = () => {
       }, []);
  
     if (redirect) {
-      return <Redirect to={redirect} data-testif='timeline-redirect-to-home'/>
+      return <Redirect to={redirect} data-testid='timeline-redirect-to-home'/>
     }
     return (
         <div>
