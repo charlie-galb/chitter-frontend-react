@@ -10,7 +10,7 @@ const Peep = (props) => {
     const readableTimeString = new Date(props.peepData.created_at).toTimeString()
     const readableDateString = new Date(props.peepData.created_at).toDateString()
 
-    if (props.peepData.likes.length != 0) {
+    if (props.peepData.likes.length !== 0) {
         props.peepData.likes.forEach( (like) => {
             if (like) { likesUserIdArray.push(like.user_id) }
         })
@@ -19,7 +19,7 @@ const Peep = (props) => {
     const handleLike = async (event) => {
         event.preventDefault();
         try {
-            await axios.put(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,
+            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,
             {credentials: 'include'},  
             {headers: {
                 Authorization: currentSessionKey
@@ -35,7 +35,7 @@ const Peep = (props) => {
     const handleUnlike = async (event) => {
         event.preventDefault();
         try {
-            await axios.delete(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,  
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/peeps/${props.peepData.id}/likes/${userId}`,  
             {headers: {
               Authorization: currentSessionKey 
             }});
@@ -48,7 +48,7 @@ const Peep = (props) => {
     const handleDelete = async (event) => {
         event.preventDefault();
         try {
-            await axios.delete(`${process.env.BACKEND_URL}/peeps/${props.peepData.id}`, 
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/peeps/${props.peepData.id}`, 
             {headers: {
                   Authorization: currentSessionKey
                 }});
