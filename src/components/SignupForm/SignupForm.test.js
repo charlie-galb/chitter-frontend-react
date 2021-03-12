@@ -1,20 +1,16 @@
 import React from 'react';
-import {render, fireEvent, cleanup} from '@testing-library/react';
+import {render, fireEvent} from '@testing-library/react';
 import axios from "axios";
+
 import SignupForm from './SignupForm.js';
 import { UserContext } from '../../contexts/UserContext.js';
 
-beforeAll(() => {
-    jest.mock("axios")
-  })
+afterAll(() => {
+  jest.resetAllMocks()
+})
 
-  afterAll(() => {
-    jest.resetAllMocks()
-  })
-
-afterEach(cleanup)
-
- it('submits the correct info to the api', () => {
+describe('SignupForm', () => {
+  it('submits the correct info to the api', () => {
     let axiosSpy = jest.spyOn(axios, "post")
     const mockContext = {
       storeUserHandleInContext: jest.fn(),
@@ -28,3 +24,5 @@ afterEach(cleanup)
     fireEvent.click(getByText('Submit'))
     expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL}/users`, {"user": {"handle":"test handle", "password":"test password"}})
  })
+})
+ 

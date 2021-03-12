@@ -10,7 +10,8 @@ afterAll(() => {
 
 afterEach(cleanup)
 
- it('submits the correct info to the api', () => {
+describe('LoginForm', () => {
+  it('submits the correct info to the api', () => {
     const mockContext = {
       storeUserHandleInContext: jest.fn(),
       storeUserIdInContext: jest.fn(),
@@ -23,3 +24,5 @@ afterEach(cleanup)
     fireEvent.click(getByText('Submit'))
     expect(axiosSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL}/sessions`, {"session": {"handle":"test handle", "password":"test password"}})
  })
+})
+ 
