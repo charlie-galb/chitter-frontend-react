@@ -8,7 +8,7 @@ import FlashMessage from '../FlashMessage/FlashMessage.js';
 
 const SignupForm = () => {
  
-    const { storeUserHandleInContext, storeUserIdInContext, storeCurrentSessionKeyInContext } = useContext(UserContext)
+    const { storeUserHandleInContext, storeUserIdInContext } = useContext(UserContext)
     const [redirect, setRedirect] = useState(null)
     const [handle, setHandle] = useState("");
     const [password, setPassword] = useState("");
@@ -30,20 +30,6 @@ const SignupForm = () => {
         setPasswordConfirmation(value);
       }
 
-    const sendLoginData = async () => {
-        try {
-            const response = await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/sessions`, {session: {handle: handle, password: password }}
-            );
-            if (response.data) {
-                setRedirect('/timeline')
-                storeCurrentSessionKeyInContext(response.data.session_key)
-            }
-        } catch (error) {
-            console.error("Error:", error)
-        }
-    }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (password !== passwordConfirmation) {
@@ -54,13 +40,11 @@ const SignupForm = () => {
             const response = await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/users`, {user: {handle: handle, password: password }}
             );
-            if (response.data.handle === handle) {
-                sendLoginData()
-                storeUserHandleInContext(handle)
-                storeUserIdInContext(response.data.id)
-            }
+            setRedirect('/')
+            storeUserHandleInContext(handle)
+            storeUserIdInContext(response.data.id)
         } catch (error) {
-            setFlashText("Invalid handle or password")
+            setFlashText("Handle already taken")
             console.error("Error:", error)
         }
     }
