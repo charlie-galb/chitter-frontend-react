@@ -18,7 +18,7 @@ const mockContext = {
 axios.post = jest.fn()
 
 describe('SignupForm', () => {
-  it('submits the correct info to the api', async () => {
+  it('submits the correct info to the api and redirects to home', async () => {
     const { container, getByText, getByTestId } = render(
       <UserContext.Provider value={mockContext}>
         <SignupForm />
@@ -29,6 +29,7 @@ describe('SignupForm', () => {
     fireEvent.change(getByTestId("sign-up-password-confirmation-input"), {target: {value: 'test password' } } )
     fireEvent.click(getByText('Submit'))
     expect(axios.post).toHaveBeenCalledWith(`${process.env.REACT_APP_BACKEND_URL}/users`, {"user": {"handle":"test handle", "password":"test password"}})
+    
  })
  it('does not call API and displays a flash notice if password and confirmation do not match', () => {
   const { container, getByText, getByTestId } = render(
@@ -57,7 +58,7 @@ it('displays a flash notice if API returns server-side error', () => {
   fireEvent.change(getByTestId("sign-up-password-confirmation-input"), {target: {value: 'test password' } } )
   fireEvent.click(getByText('Submit'))
   expect(axios.post).toThrow("mock error")
-  expect(container.textContent).toMatch(/Invalid handle or password/)
+  expect(container.textContent).toMatch(/Handle already taken/)
 })
 })
  
