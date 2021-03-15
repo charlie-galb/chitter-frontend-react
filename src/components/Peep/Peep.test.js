@@ -1,8 +1,13 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react';
 import axios from 'axios';
+
 import { UserContext } from '../../contexts/UserContext.js';
 import Peep from './Peep.js';
+
+afterAll(() => {
+  jest.resetAllMocks()
+})
 
  describe("Peep", () => {
 
