@@ -48,6 +48,7 @@ const SignupForm = () => {
             console.error("Error:", error)
         }
     }
+    
     if (redirect) {
         return <Redirect to={redirect} />
     }
