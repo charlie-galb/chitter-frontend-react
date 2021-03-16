@@ -39,6 +39,7 @@ const LoginForm = () => {
             console.error("Error:", error)
         }
     }
+    
     if (redirect) {
         return <Redirect to={redirect} />
     }
