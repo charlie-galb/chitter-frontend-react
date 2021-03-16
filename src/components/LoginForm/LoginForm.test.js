@@ -14,10 +14,14 @@ const mockContext = {
   storeCurrentSessionKeyInContext: jest.fn()
 }
 
+const ui = <UserContext.Provider value={mockContext}>
+            <LoginForm />
+          </UserContext.Provider>
+
 describe('LoginForm', () => {
   it('submits the correct info to the api', () => {
     const axiosSpy = jest.spyOn(axios, "post")
-    const { getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><LoginForm /></UserContext.Provider>);
+    const { getByText, getByTestId } = render(ui);
     fireEvent.change(getByTestId("log-in-handle-input"), {target: {value: 'test handle' } } )
     fireEvent.change(getByTestId("log-in-password-input"), {target: {value: 'test password' } } )
     fireEvent.click(getByText('Submit'))
@@ -27,7 +31,7 @@ describe('LoginForm', () => {
   axios.post = jest.fn().mockImplementation(() => {
     throw new Error('mock error');
   })
-  const { container, getByText, getByTestId } = render(<UserContext.Provider value={mockContext}><LoginForm /></UserContext.Provider>);
+  const { container, getByText, getByTestId } = render(ui);
   fireEvent.change(getByTestId("log-in-handle-input"), {target: {value: 'test handle' } } )
   fireEvent.change(getByTestId("log-in-password-input"), {target: {value: 'test password' } } )
   fireEvent.click(getByText('Submit'))
