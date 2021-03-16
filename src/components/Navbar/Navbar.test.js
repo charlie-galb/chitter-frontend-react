@@ -1,40 +1,46 @@
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react';
-import {MemoryRouter} from 'react-router-dom';
+import {fireEvent, act} from '@testing-library/react';
 
+import renderWithRouter from '../../utils/testUtils/renderWithRouter'
 import { UserContext } from '../../contexts/UserContext.js';
 import Navbar from './Navbar.js';
 
+const mockContext = {
+  currentSessionKey: "",
+  storeUserHandleInContext: jest.fn(),
+  storeUserIdInContext: jest.fn(),
+  storeCurrentSessionKeyInContext: jest.fn()
+}
+
+const ui = <UserContext.Provider value={mockContext}>
+            <Navbar />
+          </UserContext.Provider>
+
+
 describe("Navbar", () => {
-
-  const mockContext = {
-    currentSessionKey: "",
-    storeUserHandleInContext: jest.fn(),
-    storeUserIdInContext: jest.fn(),
-    storeCurrentSessionKeyInContext: jest.fn()
-  }
-  
-  test('does not render the log out link if user is not signed in', () => {
-    const { queryByTestId } = render(<UserContext.Provider value={mockContext}><MemoryRouter><Navbar /></MemoryRouter></UserContext.Provider>);
-    expect(queryByTestId(/Log out/)).toBeNull();
+  test('does not render the log out link if user is not signed in', async () => {
+    const { queryByText, history } = renderWithRouter(ui, '/sign_up')
+    expect(queryByText(/Log out/)).toBeNull();
+    expect(history.location.pathname).toEqual('/sign_up')
   });
-
-  test('clicking logout resets session-related state', async () => {
+  test('clicking logout resets session-related state and redirects to home', async () => {
     mockContext.currentSessionKey = "A_valid_session_key"
-    const { getByText } = render(<UserContext.Provider value={mockContext}><MemoryRouter><Navbar /></MemoryRouter></UserContext.Provider>);
-    fireEvent.click(getByText('Log out'))
-    fireEvent.click(getByText('Log out'))
-    fireEvent.click(getByText('Log out'))
+    const { getByText, history } = renderWithRouter(ui, '/sign_up')
+    await act(async () => {
+      const link = getByText('Log out')
+      fireEvent.click(link)
+    });
     expect(mockContext.storeUserHandleInContext).toHaveBeenCalledWith('')
     expect(mockContext.storeUserIdInContext).toHaveBeenCalledWith('')
     expect(mockContext.storeCurrentSessionKeyInContext).toHaveBeenCalledWith('')
+    expect(history.location.pathname).toEqual('/')
   });
-
-  test('Logo element links to home', () => {
-    const { getByTestId } = render(<UserContext.Provider value={mockContext}><MemoryRouter><Navbar /></MemoryRouter></UserContext.Provider>);
-    fireEvent.click(getByTestId('navbar-logo-link'));
-    expect(global.window.location.pathname).toEqual('/')
+  test('Logo element links to home', async () => {
+    const { getByText, history } = renderWithRouter(ui, '/sign_up')
+      await act(async () => {
+        const link = getByText('Chitter')
+        fireEvent.click(link)
+      });
+      expect(history.location.pathname).toEqual('/')
   });
-
-
  }) 

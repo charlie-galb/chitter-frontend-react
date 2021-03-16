@@ -5,10 +5,16 @@ const FlashMessage = (props) => {
     const [text, setText] = useState("")
 
     useEffect(() => {
+        
         setText(props.message)
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             setText("")
-        }, 5000)
+        }, 5000);
+    
+        return function cleanup() {
+            clearTimeout(timer);
+        }
+       
     }, [props.message])
 
     return (

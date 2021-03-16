@@ -30,17 +30,16 @@ const LoginForm = () => {
             const response = await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/sessions`, {session: {handle: handle, password: password }}
             );
-            if (response.data) {
-                storeUserHandleInContext(handle)
-                storeUserIdInContext(response.data.user_id)
-                storeCurrentSessionKeyInContext(response.data.token)
-                setRedirect("/timeline")
-            }
+            storeUserHandleInContext(handle)
+            storeUserIdInContext(response.data.user_id)
+            storeCurrentSessionKeyInContext(response.data.token)
+            setRedirect("/timeline")
         } catch (error) {
             setFlashText("Invalid handle or password")
             console.error("Error:", error)
         }
     }
+    
     if (redirect) {
         return <Redirect to={redirect} />
     }

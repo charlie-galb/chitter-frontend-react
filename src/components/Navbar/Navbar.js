@@ -22,7 +22,6 @@ function Navbar() {
   }
 
     return (
-
       <BootNavbar bg="light" variant="light">
         <Link to='/' className="navbar-brand" data-testid='navbar-logo-link'>Chitter</Link>
         <Nav className="ml-auto">
