@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.logoContainer {
+    background-color: #10d48e;
+    width: 50%; 
+    height: 100vh;
+    padding-top: 5%;
+}
+
+.formContainer {
+    width: 40%; 
+    height: 5%; 
+    margin-top: 5%; 
+    padding-top: 5%;
+}
