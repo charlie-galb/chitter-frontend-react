@@ -23,7 +23,7 @@ function Navbar() {
 
     return (
      <div className={styles.navContainer} >
-       <img src='/chitter-logo-long.png' alt='chitter-logo' height="100%" className={styles.logo}/>
+       <img src='/chitter-logo-long.png' data-testid="nav-logo" alt='chitter-logo' height="100%" className={styles.logo}/>
        {renderLogoutLink()}
      </div>
     )
