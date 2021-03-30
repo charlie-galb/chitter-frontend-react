@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+
+import Navbar from '../Navbar/Navbar.js'
 import PeepList from '../PeepList/PeepList.js';
 import NewPeepForm from '../NewPeepForm/NewPeepForm.js'
 import { UserContext } from '../../contexts/UserContext.js';
@@ -36,6 +38,7 @@ const Timeline = () => {
     }
     return (
         <div>
+            <Navbar />
             <h2 data-testid="timeline-h2">Timeline</h2>
             <NewPeepForm retrievePeeps={retrievePeeps}/>
             <PeepList retrievePeeps={retrievePeeps} peeps={peeps} />
