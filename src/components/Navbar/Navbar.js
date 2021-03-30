@@ -17,12 +17,12 @@ function Navbar() {
 
   const renderLogoutLink = () => {
     if (currentSessionKey !== "") {
-      return <Link to='/' className="nav-link" id="logOutLink" data-testid="log-out-link" onClick={handleLogout} >Log out</Link>
+      return <Link to='/' className="logOutLink" data-testid="log-out-link" onClick={handleLogout} >Log out</Link>
     }
   }
 
     return (
-     <div style={{width: '100%', height: "70px", backgroundColor: '#10D48E', display: 'fixed'}}>
+     <div className={styles.navContainer} >
        <img src='/chitter-logo-long.png' alt='chitter-logo' height="100%" className={styles.logo}/>
        {renderLogoutLink()}
      </div>
