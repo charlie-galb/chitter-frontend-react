@@ -54,29 +54,23 @@ const SignupForm = () => {
         return <Redirect to={redirect} />
     }
     return (
-        <div className={styles.background} >
-            <div className={styles.container}>
-                <h1>Sign up for Chitter</h1>
-                <Form>
-                    <Form.Group controlId="sign-up-handle">
-                        <Form.Label>Handle</Form.Label>
-                        <Form.Control type="text" placeholder="Enter handle" data-testid="sign-up-handle-input" name="handle"value={handle} onChange={handleHandleChange} required/>
-                    </Form.Group>
+        <div className={styles.container} >
+            <Form>
+                <Form.Group controlId="sign-up-handle">
+                    <Form.Control type="text" placeholder="Enter handle" className='textInput' data-testid="sign-up-handle-input" name="handle"value={handle} onChange={handleHandleChange} required/>
+                </Form.Group>
 
-                    <Form.Group controlId="sign-up-password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" data-testid="sign-up-password-input" name="password" value={password} onChange={handlePasswordChange} required/>
-                    </Form.Group>
-                    <Form.Group controlId="sign-up-password-confirmation">
-                        <Form.Label>Password Confirmation</Form.Label>
-                        <Form.Control type="password" placeholder="Confirm password" data-testid="sign-up-password-confirmation-input" name="passwordConfirmation" value={passwordConfirmation} onChange={handlePasswordConfirmationChange} required/>
-                    </Form.Group>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
-                        Submit
-                    </Button>
-                </Form>
-                <FlashMessage message={flashText} />
-            </div>
+                <Form.Group controlId="sign-up-password">
+                    <Form.Control type="password" placeholder="Enter password" className='textInput' data-testid="sign-up-password-input" name="password" value={password} onChange={handlePasswordChange} required/>
+                </Form.Group>
+                <Form.Group controlId="sign-up-password-confirmation">
+                    <Form.Control type="password" placeholder="Confirm password" className='textInput' data-testid="sign-up-password-confirmation-input" name="passwordConfirmation" value={passwordConfirmation} onChange={handlePasswordConfirmationChange} required/>
+                </Form.Group>
+                <Button variant="primary" className='formButton' type="submit" onClick={handleSubmit}>
+                    Submit
+                </Button>
+            </Form>
+            <FlashMessage message={flashText} />
         </div>
     )
 }
