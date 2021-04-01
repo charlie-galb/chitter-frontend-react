@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar.js'
 import PeepList from '../PeepList/PeepList.js';
 import NewPeepForm from '../NewPeepForm/NewPeepForm.js'
 import { UserContext } from '../../contexts/UserContext.js';
+import styles from './Timeline.module.css'
 
 const Timeline = () => {
 
@@ -37,11 +38,18 @@ const Timeline = () => {
       return <Redirect to={redirect} data-testid='timeline-redirect-to-home'/>
     }
     return (
-        <div>
+        <div className={styles.background}>
             <Navbar />
-            <h2 data-testid="timeline-h2">Timeline</h2>
-            <NewPeepForm retrievePeeps={retrievePeeps}/>
-            <PeepList retrievePeeps={retrievePeeps} peeps={peeps} />
+            <div className={styles.navbarSpacer} />
+            <div className={styles.mainContent}>
+              <div className={styles.header}>
+                <h2 data-testid="timeline-h2">Timeline</h2>
+                <NewPeepForm retrievePeeps={retrievePeeps}/>
+              </div>
+              <div className={styles.peepsContainer}>
+                <PeepList retrievePeeps={retrievePeeps} peeps={peeps} />
+              </div>
+            </div>
         </div>
     )
     
