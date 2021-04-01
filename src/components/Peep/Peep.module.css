@@ -8,23 +8,22 @@
     border-bottom: solid rgb(187, 189, 188) 1px;
 }
 
-.peepButton {
-    margin: 10px;
-    background-color: #10d48e;
-    border-color:rgb(71, 112, 167);
-    width: 20%;
-    font-size: 15px;
-}
-
 .peepHandle {
     display: inline;
 }
 
-.peepHeader {
-   
+.peepFooter {
+   display: flex;
+   flex-direction: row;
 }
 
 .peepTime {
     display: inline;
     color: rgb(119, 118, 118);
+}
+
+.icon {
+    font-size: 150%;
+    color: #00a56b;
+    margin-left: 50%;
 }
