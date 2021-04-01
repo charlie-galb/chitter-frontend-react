@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai"
+import { IconContext } from "react-icons"
 
 import { UserContext } from '../../contexts/UserContext.js';
 import styles from './Peep.module.css'
@@ -70,19 +74,37 @@ const Peep = (props) => {
 
     const renderDeleteButton = () => {
         if (userId === props.peepData.user.id) {
-            return <Button variant="primary" className={styles.peepButton} onClick={handleDelete} data-testid='delete-button'>Delete</Button>
+            return (
+                <IconContext.Provider value={{ className: styles.icon}} >
+                    <div onClick={handleDelete} data-testid='delete-icon'>
+                        <AiFillDelete />
+                    </div>
+                </IconContext.Provider>
+            )
         }
     }
 
     const renderLikeButton = () => {
         if ((userId !== props.peepData.user.id) && (!likesUserIdArray.includes(userId))) {
-            return <Button variant="primary" className={styles.peepButton} onClick={handleLike} data-testid='like-button'>Like</Button>
+            return (
+                <IconContext.Provider value={{ className: styles.icon}} >
+                    <div onClick={handleLike} data-testid='like-icon'>
+                        <AiFillLike />
+                    </div>
+                </IconContext.Provider>
+            )
         }
     }
 
     const renderUnlikeButton = () => {
         if ((userId !== props.peepData.user.id) && (likesUserIdArray.includes(userId))) {
-            return <Button variant="primary" className={styles.peepButton} onClick={handleUnlike} data-testid='unlike-button'>Unlike</Button>
+            return (
+                <IconContext.Provider value={{ className: styles.icon}} >
+                    <div onClick={handleUnlike} data-testid='unlike-icon'>
+                        <AiFillDislike />
+                    </div>
+                </IconContext.Provider>
+            )
         }
     }
 
@@ -94,11 +116,13 @@ const Peep = (props) => {
                 </div>
                 <div className={styles.peepBody}>
                     <p>{props.peepData.body}</p>
+                </div>
+                <div className={styles.peepFooter} data-testid='like-count'>
+                    <p><i>{returnLikeCount()}</i></p>
                     {renderDeleteButton()}
                     {renderLikeButton()}
                     {renderUnlikeButton()}
                 </div>
-                <div className={styles.footer} data-testid='like-count'>{returnLikeCount()}</div>
             </div>
             <br />
         </div>
