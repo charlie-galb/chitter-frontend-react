@@ -41,26 +41,26 @@ afterAll(() => {
   });
 
   test('the current user can delete it', async () => {
-    const { getByText } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
-    await fireEvent.click(getByText('Delete'))
+    const { getByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
+    await fireEvent.click(getByTestId('delete-icon'))
     expect(axiosDeleteSpy).toHaveBeenCalled()
     expect(retrievePeeps).toHaveBeenCalledTimes(1)
   });
 
   test("the current user can't like their own post", () => {
     const { queryByTestId } = render(<UserContext.Provider value={mockContext}><Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/></UserContext.Provider>);
-    expect(queryByTestId(/Like/)).toBeNull();
+    expect(queryByTestId(/like-icon/)).toBeNull();
   })
 
   test("users can like someone else's post", async () => {
     mockContext.userId = 3
-    const { getByText } = render(
+    const { getByTestId } = render(
     <UserContext.Provider value={mockContext}>
       <Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/>
     </UserContext.Provider>
     );
 
-    await fireEvent.click(getByText('Like'))
+    await fireEvent.click(getByTestId('like-icon'))
 
     expect(axiosPutSpy).toHaveBeenCalledTimes(1)
     expect(retrievePeeps).toBeCalledTimes(1)
@@ -68,12 +68,12 @@ afterAll(() => {
 
   test('users can unlike a post', async () => {
     mockContext.userId = 2
-    const { getByText } = render(
+    const { getByTestId } = render(
     <UserContext.Provider value={mockContext}>
       <Peep retrievePeeps={retrievePeeps} key='1' peepData={mockPeepData}/>
       </UserContext.Provider>
       )
-    await fireEvent.click(getByText('Unlike'))
+    await fireEvent.click(getByTestId('unlike-icon'))
     expect(axiosDeleteSpy).toHaveBeenCalled()
     expect(retrievePeeps).toHaveBeenCalledTimes(1)
   });

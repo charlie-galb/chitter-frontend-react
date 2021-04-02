@@ -1,0 +1,34 @@
+.peepBox {
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    border-bottom: solid rgb(187, 189, 188) 1px;
+}
+
+.peepHandle {
+    display: inline;
+}
+
+.peepFooter {
+   display: flex;
+   flex-direction: row;
+}
+
+.peepTime {
+    display: inline;
+    color: rgb(119, 118, 118);
+}
+
+.icon {
+    font-size: 150%;
+    color: #00a56b;
+    margin-left: 50%;
+}
+
+.icon:hover {
+    color: #007bff;
+    font-size: 180%;
+}

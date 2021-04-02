@@ -35,12 +35,4 @@ describe("Navbar", () => {
     expect(mockContext.storeCurrentSessionKeyInContext).toHaveBeenCalledWith('')
     expect(history.location.pathname).toEqual('/')
   });
-  test('Logo element links to home', async () => {
-    const { getByText, history } = renderWithRouter(ui, '/sign_up')
-      await act(async () => {
-        const link = getByText('Chitter')
-        fireEvent.click(link)
-      });
-      expect(history.location.pathname).toEqual('/')
-  });
  }) 

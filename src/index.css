@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(217, 248, 232);
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.textInput {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px
+}
+
+.formButton {
+    margin: 10px;
+    background-color: #10d48e;
+    border-color:rgb(71, 112, 167);
+    width: 25%;
+    font-size: 20px;
+}

@@ -1,7 +1,12 @@
 import React, { useContext } from 'react';
-import { Card, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai"
+import { IconContext } from "react-icons"
+
 import { UserContext } from '../../contexts/UserContext.js';
+import styles from './Peep.module.css'
 
 const Peep = (props) => {
 
@@ -58,37 +63,66 @@ const Peep = (props) => {
         }
     }
 
+    const returnLikeCount = () => {
+        if (props.peepData.likes.length === 1) {
+            return "1 person likes this"
+        } else {
+            return `${props.peepData.likes.length} people like this`
+        }
+    }
+
     const renderDeleteButton = () => {
         if (userId === props.peepData.user.id) {
-            return <Button variant="secondary" size="sm" onClick={handleDelete} data-testid='delete-button'>Delete</Button>
+            return (
+                <IconContext.Provider value={{ className: styles.icon}} >
+                    <div onClick={handleDelete} data-testid='delete-icon'>
+                        <AiFillDelete />
+                    </div>
+                </IconContext.Provider>
+            )
         }
     }
 
     const renderLikeButton = () => {
         if ((userId !== props.peepData.user.id) && (!likesUserIdArray.includes(userId))) {
-            return <Button variant="secondary" size="sm" onClick={handleLike} data-testid='like-button'>Like</Button>
+            return (
+                <IconContext.Provider value={{ className: styles.icon}} >
+                    <div onClick={handleLike} data-testid='like-icon'>
+                        <AiFillLike />
+                    </div>
+                </IconContext.Provider>
+            )
         }
     }
 
     const renderUnlikeButton = () => {
         if ((userId !== props.peepData.user.id) && (likesUserIdArray.includes(userId))) {
-            return <Button variant="secondary" size="sm" onClick={handleUnlike} data-testid='unlike-button'>Unlike</Button>
+            return (
+                <IconContext.Provider value={{ className: styles.icon}} >
+                    <div onClick={handleUnlike} data-testid='unlike-icon'>
+                        <AiFillDislike />
+                    </div>
+                </IconContext.Provider>
+            )
         }
     }
 
     return (
         <div>
-            <Card className="mx-auto" border="dark" style={{ width: '18rem', margin: '1rem' }}>
-                <Card.Title>{props.peepData.user.handle}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted" data-testid='peep-time-stamp'>Posted at {readableTimeString.slice(0, 5)} on {readableDateString}</Card.Subtitle>
-                <Card.Body>
-                    <Card.Text>{props.peepData.body}</Card.Text>
+            <div className={styles.peepBox}>
+                <div className={styles.peepHeader}>
+                    <h4 className={styles.peepHandle}>{props.peepData.user.handle}</h4><p className={styles.peepTime} data-testid='peep-time-stamp'> - {readableTimeString.slice(0, 5)} on {readableDateString}</p>
+                </div>
+                <div className={styles.peepBody}>
+                    <p>{props.peepData.body}</p>
+                </div>
+                <div className={styles.peepFooter} data-testid='like-count'>
+                    <p><i>{returnLikeCount()}</i></p>
                     {renderDeleteButton()}
                     {renderLikeButton()}
                     {renderUnlikeButton()}
-                    <Card.Footer className="text-muted" data-testid='like-count'>Liked by {props.peepData.likes.length}</Card.Footer>
-                </Card.Body>
-            </Card>
+                </div>
+            </div>
             <br />
         </div>
     )

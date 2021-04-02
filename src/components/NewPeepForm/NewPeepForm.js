@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+
 import { UserContext } from '../../contexts/UserContext.js';
+import styles from './NewPeepForm.module.css'
 
 const NewPeepForm = (props) => {
  
@@ -30,10 +32,9 @@ const NewPeepForm = (props) => {
     return (
         <Form>
             <Form.Group controlId="new-peep">
-                <Form.Label>Got something to say?</Form.Label>
-                <Form.Control type="textarea" placeholder="Say it here!" data-testid="peep-body-text-input" name="new-peep-body" value={peepBody} onChange={handlePeepBodyChange} required/>
+                <Form.Control as="textarea" rows='3' className={styles.textArea} placeholder="Got something to say?" data-testid="peep-body-text-input" name="new-peep-body" value={peepBody} onChange={handlePeepBodyChange} required/>
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
+            <Button variant="primary" className="formButton" type="submit" onClick={handleSubmit}>
                 Post peep
             </Button>
         </Form>
