@@ -27,3 +27,8 @@
     color: #00a56b;
     margin-left: 50%;
 }
+
+.icon:hover {
+    color: #007bff;
+    font-size: 180%;
+}
