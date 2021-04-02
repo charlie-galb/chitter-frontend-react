@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
