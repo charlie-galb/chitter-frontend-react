@@ -3,16 +3,31 @@ body {
     font-family: 'Noto Sans', sans-serif;
 }
 
-.textInput {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 20px
+h1 {
+    font-size: 3.5vw;
+}
+
+h2 {
+    font-size: 3vw;
+}
+
+h4 {
+    font-size: 2vw;
+}
+
+p {
+    font-size: 1vw;
 }
 
 .formButton {
-    margin: 10px;
     background-color: #10d48e;
     border-color:rgb(71, 112, 167);
-    width: 25%;
-    font-size: 20px;
+    font-size: 1.5vw;
+    margin: 10px;
+}
+
+.textInput {
+    font-size: 1.5vw;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
