@@ -4,30 +4,30 @@ body {
 }
 
 h1 {
-    font-size: 3.5vw;
+    font-size: calc(18px + 0.5vw);
 }
 
 h2 {
-    font-size: 3vw;
+    font-size: calc(16px + 0.5vw);
 }
 
 h4 {
-    font-size: 2vw;
+    font-size: calc(12px + 0.5vw);
 }
 
 p {
-    font-size: 1vw;
+    font-size: calc(10px + 0.5vw);
 }
 
 .formButton {
     background-color: #10d48e;
     border-color:rgb(71, 112, 167);
-    font-size: 1.5vw;
+    font-size: calc(10px + 0.5vw);
     margin: 10px;
 }
 
 .textInput {
-    font-size: 1.5vw;
+    font-size: calc(10px + 0.5vw);
     margin-bottom: 15px;
     margin-top: 15px;
 }
