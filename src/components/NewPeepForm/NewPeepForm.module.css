@@ -1,5 +1,6 @@
 .textArea {
-    margin: auto;
+    font-size: calc(10px + 0.5vw);
     height: 100px;
+    margin: auto;
     width: 80%;
 }

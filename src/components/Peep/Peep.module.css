@@ -10,6 +10,8 @@
 
 .peepHandle {
     display: inline;
+    font-size: calc(10px + 0.5vw);
+    font-weight: bold; 
 }
 
 .peepFooter {

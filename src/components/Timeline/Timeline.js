@@ -43,7 +43,7 @@ const Timeline = () => {
             <div className={styles.navbarSpacer} />
             <div className={styles.mainContent}>
               <div className={styles.header}>
-                <h2 data-testid="timeline-h2">Timeline</h2>
+                <h1 data-testid="timeline-h2">Timeline</h1>
                 <NewPeepForm retrievePeeps={retrievePeeps}/>
               </div>
               <div className={styles.peepsContainer}>

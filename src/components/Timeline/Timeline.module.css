@@ -34,3 +34,15 @@
     background-color: white;
     border: solid rgb(226, 222, 222) 1px;
 }
+
+@media only screen and (min-width: 100px) and (max-width: 1000px) {
+     .navbarSpacer {
+        height: 40px;
+    }
+}
+
+@media only screen and (min-width: 100px) and (max-width: 850px) {
+    .mainContent {
+        width: 90%;
+    }
+}
