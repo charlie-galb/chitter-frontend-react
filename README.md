@@ -1,6 +1,6 @@
 # Chitter Frontend in React  
 
-This is a twitter clone made with react. The back-end is made in Express ([Here's a link](https://github.com/makersacademy/chitter_api_backend).  
+This is a twitter clone made with react. The back-end is made in Express ([Here's a link](https://github.com/makersacademy/chitter_api_backend)).  
 
 The app is deployed at `https://chitter-deployed.netlify.app/`
 
